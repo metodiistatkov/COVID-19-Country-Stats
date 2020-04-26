@@ -1,6 +1,6 @@
 # COVID-19-Country-Stats
 Python program that web crawls Covid-19 statistics for a desired country and sends the information to email recipients through Gmail.
-I have modified the script provided by Google in the official documentation [here](https://developers.google.com/gmail/api/quickstart/python) to work with Python 3.
+I have modified the script provided by Google in the official documentation [here](https://developers.google.com/gmail/api/quickstart/python) to work with Python 3. Other than that follow the instructions provided in the documentation for setting OAuth authentication.
 [This](https://www.worldometers.info/coronavirus/#countries) is the website from which the crawler extracts the information.
 
 ## General setup
