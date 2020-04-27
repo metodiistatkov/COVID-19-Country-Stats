@@ -14,8 +14,8 @@ from Crawler import scrape
 # Be careful! This scope gives full e-mail permissions (including deletion of mails)
 # For more information about scopes check the relevant Gmail api sections
 SCOPES: list = ['https://mail.google.com/']
-COUNTRY: str = 'Bulgaria'
-SUBJECT: str = 'COVID-19 Daily Stats' + COUNTRY
+COUNTRIES: list = ['Bulgaria', 'UK']
+SUBJECT: str = 'COVID-19 Daily Stats'
 
 
 # https://developers.google.com/gmail/api/guides/sending
@@ -48,6 +48,17 @@ def __send_emails(emails: list, service: Resource, msg_text: str) -> None:
             print(outcome)
 
 
+def __get_info(countries: list) -> str:
+    countries_info: list = list()
+    for country in countries:
+        info: str = scrape('https://www.worldometers.info/coronavirus/#countries', 'div', 'main_table_countries_div',
+                           country)
+        countries_info.append(info)
+
+    result: str = '\n---------------------------\n'.join(countries_info)
+    return result
+
+
 def main():
     store: Storage = file.Storage('credentials.json')
     creds: Any = store.get()
@@ -57,8 +68,7 @@ def main():
     service: Resource = build('gmail', 'v1', http=creds.authorize(Http()))
 
     # get daily statistics regarding Covid-19 for the desired country
-    msg_text: str = scrape('https://www.worldometers.info/coronavirus/#countries', 'div', 'main_table_countries_div',
-                           COUNTRY)
+    msg_text: str = __get_info(COUNTRIES)
     emails: list = []  # populate emails of desired recipients
     __send_emails(emails, service, msg_text)
 
