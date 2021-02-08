@@ -7,7 +7,7 @@ beautifulsoup4 == 4.9.0
 google_api_python_client == 1.8.2
 
 # code/SendMail.py: 8
-httplib2 == 0.18.0
+httplib2 == 0.19.0
 
 # code/SendMail.py: 10
 oauth2client == 4.1.3
